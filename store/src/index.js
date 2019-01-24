@@ -1,15 +1,19 @@
-import React from 'react'; 
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { ProductProvider } from './context';
 
 ReactDOM.render(
-    <Router>
-        <App />
-    </Router>
+    <ProductProvider>
+        <Router>
+            <App />
+        </Router>
+    </ProductProvider>
+
     ,
     document.getElementById('root'));
 
