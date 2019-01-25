@@ -7,6 +7,7 @@ background:transparent;
 border:0.05rem solid var(--lightblue);
 color: var(--lightblue);
 border-radius: 0.5rem;
+border-color: ${props => props.cart? "var(--mainYellow)" : "var(--lightblue)"};
 padding:0.2rem 0.5rem;
 cursor:pointer;
 margin: 0.2rem 0.5rem 0.2rem 0;
