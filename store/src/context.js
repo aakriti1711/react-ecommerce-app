@@ -12,9 +12,9 @@ export default class ProductProvider extends Component {
         cart: [],
         modelOpen: false,
         modalProduct: detailProduct,
-        cartSubTotal:0,
-        cartTax:0,
-        cartTotal:0
+        cartSubTotal: 0,
+        cartTax: 0,
+        cartTotal: 0
     }
     componentDidMount() {
         this.setProducts();
@@ -58,7 +58,7 @@ export default class ProductProvider extends Component {
 
             }
         }, () => {
-            console.log(this.state);
+            this.addTotals();
 
         })
     }
@@ -82,22 +82,46 @@ export default class ProductProvider extends Component {
 
     }
 
-    increment =(id) =>{
+    increment = (id) => {
         console.log('This is Increment Method');
 
     }
 
-    decrement = (id) =>{
+    decrement = (id) => {
         console.log('This is Decrement Method');
     }
 
-    removeItem = (id) =>{
+    removeItem = (id) => {
         console.log('Item removed');
     }
-    
 
-    clearCart = () =>{
+
+    clearCart = () => {
         console.log('Cart is Cleared');
+        this.setState(()=>{
+            return {
+                cart:[]
+            }
+        },()=>{
+            this.setProducts();
+            this.addTotals();
+        })
+    }
+    addTotals = () => {
+        let subTotal = 0;
+        this.state.cart.map(item => (subTotal += item.total))
+        const tempTax = subTotal * 0.1;
+        const tax = parseFloat(tempTax.toFixed(2));
+        const total = subTotal + tax;
+        this.setState(() => {
+            return {
+                cartSubTotal: subTotal,
+                cartTax: tax,
+                cartTotal: total
+            }
+
+        })
+
     }
     /* tester = () =>{
          console.log('State Products: ',this.state.products[0].inCart);
@@ -118,12 +142,12 @@ export default class ProductProvider extends Component {
                 ...this.state,
                 handleDetail: this.handleDetail,
                 addToCart: this.addToCart,
-                openModal :this.openModal,
-                closeModal:this.closeModal,
-                increment:this.increment,
-                decrement:this.decrement,
-                removeItem:this.removeItem,
-                clearCart:this.clearCart 
+                openModal: this.openModal,
+                closeModal: this.closeModal,
+                increment: this.increment,
+                decrement: this.decrement,
+                removeItem: this.removeItem,
+                clearCart: this.clearCart
             }}>
                 {/* <button onClick={this.tester}>Test Me</button> */}
                 {this.props.children}
