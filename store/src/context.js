@@ -12,6 +12,9 @@ export default class ProductProvider extends Component {
         cart: [],
         modelOpen: false,
         modalProduct: detailProduct,
+        cartSubTotal:0,
+        cartTax:0,
+        cartTotal:0
     }
     componentDidMount() {
         this.setProducts();
@@ -78,6 +81,24 @@ export default class ProductProvider extends Component {
         })
 
     }
+
+    increment =(id) =>{
+        console.log('This is Increment Method');
+
+    }
+
+    decrement = (id) =>{
+        console.log('This is Decrement Method');
+    }
+
+    removeItem = (id) =>{
+        console.log('Item removed');
+    }
+    
+
+    clearCart = () =>{
+        console.log('Cart is Cleared');
+    }
     /* tester = () =>{
          console.log('State Products: ',this.state.products[0].inCart);
          console.log('Data Products: ',storeProducts[0].inCart);
@@ -98,7 +119,11 @@ export default class ProductProvider extends Component {
                 handleDetail: this.handleDetail,
                 addToCart: this.addToCart,
                 openModal :this.openModal,
-                closeModal:this.closeModal
+                closeModal:this.closeModal,
+                increment:this.increment,
+                decrement:this.decrement,
+                removeItem:this.removeItem,
+                clearCart:this.clearCart 
             }}>
                 {/* <button onClick={this.tester}>Test Me</button> */}
                 {this.props.children}
