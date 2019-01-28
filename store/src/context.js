@@ -9,7 +9,9 @@ export default class ProductProvider extends Component {
     state = {
         products: [],
         detailProduct: detailProduct,
-        cart: []
+        cart: [],
+        modelOpen: false,
+        modalProduct: detailProduct,
     }
     componentDidMount() {
         this.setProducts();
@@ -49,13 +51,32 @@ export default class ProductProvider extends Component {
         this.setState(() => {
             return {
                 products: tempProduct,
-                cart: [...this.state.cart,product]
-                
+                cart: [...this.state.cart, product]
+
             }
         }, () => {
             console.log(this.state);
 
         })
+    }
+
+    openModal = (id) => {
+        const product = this.getItem(id);
+        this.setState(() => {
+            return {
+                modalProduct: product,
+                modelOpen: true
+            }
+        })
+    }
+
+    closeModal = () => {
+        this.setState(() => {
+            return {
+                modelOpen: false
+            }
+        })
+
     }
     /* tester = () =>{
          console.log('State Products: ',this.state.products[0].inCart);
@@ -75,7 +96,9 @@ export default class ProductProvider extends Component {
             <ProductContext.Provider value={{
                 ...this.state,
                 handleDetail: this.handleDetail,
-                addToCart: this.addToCart
+                addToCart: this.addToCart,
+                openModal :this.openModal,
+                closeModal:this.closeModal
             }}>
                 {/* <button onClick={this.tester}>Test Me</button> */}
                 {this.props.children}
