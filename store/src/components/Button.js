@@ -5,7 +5,7 @@ text-transform:capitalize;
 font-size:1.4rem;
 background:transparent;
 border:0.05rem solid var(--lightblue);
-color: var(--lightblue);
+color: ${props => props.cart ? "var(--mainYellow)": "var(--lightblue)" };
 border-radius: 0.5rem;
 border-color: ${props => props.cart? "var(--mainYellow)" : "var(--lightblue)"};
 padding:0.2rem 0.5rem;
@@ -13,8 +13,8 @@ cursor:pointer;
 margin: 0.2rem 0.5rem 0.2rem 0;
 transition: all 0.5s ease-in-out;
 &:hover{
-  background: var(--lightblue);
-  color: var(--mainBlue);
+  background: ${props => props.cart? "var(--mainYellow)" :  "var(--lightblue)"};
+  color: ${props => props.cart? "var(--white)" :  "var(--mainBlue)"};
 }
 &:focus{
   outline : none;
