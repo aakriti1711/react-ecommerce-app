@@ -83,26 +83,77 @@ export default class ProductProvider extends Component {
     }
 
     increment = (id) => {
-        console.log('This is Increment Method');
+        let tempCart = [...this.state.cart];
+        const selectedProduct = tempCart.find(item => item.id === id);
+        const index = tempCart.indexOf(selectedProduct);
+        const product = tempCart[index];
+        product.count = product.count + 1;
+        product.total = product.price * product.count;
+        this.setState(() => {
+            return {
+                cart: [...tempCart],
+
+            }
+        }, () => {
+            this.addTotals();
+        });
 
     }
 
     decrement = (id) => {
-        console.log('This is Decrement Method');
+        let tempCart = [...this.state.cart];
+        const selectedProduct = tempCart.find(item => item.id === id);
+        const index = tempCart.indexOf(selectedProduct);
+        const product = tempCart[index];
+        product.count = product.count - 1;
+        if (product.count === 0) {
+            this.removeItem(id);
+        } else {
+            product.total = product.price * product.count;
+            this.setState(() => {
+                return {
+                    cart: [...tempCart],
+    
+                }
+            }, () => {
+                this.addTotals();
+            });
+        }
+
+
+      
     }
 
     removeItem = (id) => {
-        console.log('Item removed');
+        let tempProduct = [...this.state.products];
+        let tempCart = [...this.state.cart];
+        tempCart = tempCart.filter(item => item.id !== id);
+        const index = tempProduct.indexOf(this.getItem(id));
+        let removedProduct = tempProduct[index];
+        removedProduct.inCart = false;
+        removedProduct.count = 0;
+        removedProduct.total = 0;
+        this.setState(() => {
+            return {
+                cart: [...tempCart],
+                product: [...tempProduct]
+            }
+        }, () => {
+            this.addTotals();
+        })
+
+
+
     }
 
 
     clearCart = () => {
         console.log('Cart is Cleared');
-        this.setState(()=>{
+        this.setState(() => {
             return {
-                cart:[]
+                cart: []
             }
-        },()=>{
+        }, () => {
             this.setProducts();
             this.addTotals();
         })
